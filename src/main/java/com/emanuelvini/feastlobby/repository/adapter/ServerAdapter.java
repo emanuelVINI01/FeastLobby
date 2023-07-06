@@ -9,10 +9,10 @@ public class ServerAdapter implements SQLResultAdapter<Server> {
     @Override
     public Server adaptResult(SimpleResultSet simpleResultSet) {
         return new Server(
-                simpleResultSet.get("address"),
+                simpleResultSet.get("id"),
                 simpleResultSet.get("name"),
                 simpleResultSet.get("bungee"),
-                simpleResultSet.get("ip") + ":" + simpleResultSet.get("port"),
+                simpleResultSet.get("address"),
                 NBT.itemStackFromNBT(NBT.parseNBT(simpleResultSet.get("item"))),
                 simpleResultSet.get("maintenance")
         );

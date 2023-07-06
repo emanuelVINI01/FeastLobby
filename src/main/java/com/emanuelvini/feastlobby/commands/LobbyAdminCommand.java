@@ -36,7 +36,8 @@ public class LobbyAdminCommand {
         context.sendMessage(
                 "§d§lFEAST LOBBY\n" +
                 "\n" +
-                        "§d/lobbyadmin criar §8-§7 Cria um servidor");
+                        "  §d/lobbyadmin criar §8-§7 Cria um servidor\n" +
+                        "  §d/lobbyadmin editarservidor §8-§7 Edita um servidor");
     }
 
     @Command(

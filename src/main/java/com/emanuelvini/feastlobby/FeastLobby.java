@@ -4,7 +4,10 @@ import com.emanuelvini.feastcore.bukkit.api.BukkitFeastPlugin;
 import com.emanuelvini.feastlobby.commands.LobbyAdminCommand;
 import com.emanuelvini.feastlobby.configuration.MessageValue;
 import com.emanuelvini.feastlobby.configuration.registry.ConfigurationRegistry;
+import com.emanuelvini.feastlobby.listeners.ChatListener;
 import com.emanuelvini.feastlobby.listeners.PlayerListener;
+import com.emanuelvini.feastlobby.listeners.WorldListener;
+import com.emanuelvini.feastlobby.placeholder.LobbyPlaceholder;
 import com.emanuelvini.feastlobby.repository.ServerRepository;
 import lombok.Getter;
 import lombok.val;
@@ -23,6 +26,7 @@ public class FeastLobby extends BukkitFeastPlugin {
     @Override
     public void setupDependencies() {
         addDependency("SmartInvs", "https://github.com/MinusKube/SmartInvs/releases/download/v1.2.7/SmartInvs-1.2.7.jar");
+
     }
 
     @Override
@@ -66,11 +70,25 @@ public class FeastLobby extends BukkitFeastPlugin {
 
         frame.registerCommands(new LobbyAdminCommand());
 
+        getCustomLogger().log("Comandos carregados com sucesso", "a");
+
         getCustomLogger().log("Carregando eventos...", "e");
 
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
+        Bukkit.getPluginManager().registerEvents(new ChatListener(), this);
+        Bukkit.getPluginManager().registerEvents(new WorldListener(), this);
 
         getCustomLogger().log("Eventos carregados com sucesso.", "a");
+
+        getCustomLogger().log("Registrando palceholders...", "e");
+
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") == null) {
+            getCustomLogger().log("PlaceholderAPI não está instalado! Hook desativado.", "c");
+        } else {
+            new LobbyPlaceholder().register();
+
+            getCustomLogger().log("Placeholders registrados com sucesso.", "a");
+        }
 
     }
 

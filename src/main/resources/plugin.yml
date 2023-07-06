@@ -9,9 +9,13 @@ permissions:
   feastlobby.admin.editarservidor:
     default: "op"
     description: "Permissão para usar o /lobbyadmin editarservidor"
-  feastlobby.admin:
+  feastlobby.admin.bypass:
     default: "op"
-    description: "Permissão para usar todos comandos do /lobbyadmin"
+    description: "Permissão para colocar e tirar blocos no lobby."
+  feastlobby.*:
+    default: "op"
+    description: "Permissão para usar todos comandos do /lobbyadmin e bypasses"
     children:
       - "feastlobby.admin.criar"
       - "feastlobby.admin.editarservidor"
+      - "feastlobby.bypass"

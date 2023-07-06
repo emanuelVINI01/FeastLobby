@@ -52,7 +52,7 @@ public class ServerRepository {
     private void reloadServers() {
         servers.clear();
         executor.resultManyQuery("SELECT * FROM servers", k -> {}, ServerAdapter.class).forEach(server -> {
-            servers.put(server.getName(), server);
+            servers.put(server.getId(), server);
             plugin.getCustomLogger().log(String.format("Servidor §f%s§a carregado com sucesso!", server.getName()), "a");
         });
     }

@@ -1,4 +1,4 @@
-# Configuração principal do Plugin
+# Configuração princal do Plugin
 # by emanuelVINI
 #
 # ___________                     __    .____         ___.  ___.           ____   ________
@@ -10,9 +10,24 @@
 
 error fixer:
   #Se você estiver com erros de SQL no plugin, ative essa opção e reinicie seu servidor, depois desligue ele e desative.
-  delete table: false #Essa opção ira deletar a tabela e criar novamente.
+  delete table: false #Essa opção irá deletar a tabela e criar novamente.
 
 features:
-  #Define se o plugin irá setar a vida para o minimo
-  set hp to min: true # O minimo de vida é meio coração.
+  #Sistema de chat do plugin
+  chat:
+    enabled: true
+    format: "%luckperms_prefix% %player_name%&f:"
+  #Configurações de proteção do mundo
+  world:
+    disable weather: true #Desabilita a chuva
+    disable grow: true #Desabilita o crescimento de plantações
+    disable block place and break: true #Desabilita colocar blocos e tirar blocos (feastlobby.admin.bypass)
+    disable entity spawn: true #Desabilita o nascimento de entidades
+    disable pvp: true #Desabilita o PvP no lobby
+    disable block interact: true #Desabilita interações com blocos
+  #Configurações de proteção do player
+  player:
+    disable food: true #A fome sempre ficará cheia.
+    disable damage: true #Desabilitara o dano no lobby
+    set hp to min: true # Define a vida para meio coração.
 

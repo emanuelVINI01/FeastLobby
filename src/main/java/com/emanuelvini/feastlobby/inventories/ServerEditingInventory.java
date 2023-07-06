@@ -3,6 +3,7 @@ package com.emanuelvini.feastlobby.inventories;
 import com.emanuelvini.feastcore.bukkit.api.common.ItemStackBuilder;
 import com.emanuelvini.feastlobby.FeastLobby;
 import com.emanuelvini.feastlobby.model.Server;
+import com.emanuelvini.feastlobby.repository.ServerRepository;
 import fr.minuskube.inv.ClickableItem;
 import fr.minuskube.inv.SmartInventory;
 import fr.minuskube.inv.content.InventoryContents;
@@ -22,24 +23,26 @@ public class ServerEditingInventory implements InventoryProvider {
 
     private final Server server;
 
+    private final ServerRepository repository;
+
     private final FeastLobby plugin = FeastLobby.getInstance();
 
     private final Predicate<Event> filter;
 
     public static void open(Player player, Server server) {
         SmartInventory.builder()
-                .provider(new ServerEditingInventory(server, e -> {
+                .provider(new ServerEditingInventory(server, FeastLobby.getInstance().getServerRepository(), e -> {
                     val chatEvent = (AsyncPlayerChatEvent) e;
-                    return chatEvent.getPlayer().getName() == player.getName();
+                    return chatEvent.getPlayer().getName().equals(player.getName());
                 }))
-                .size(3, 9)
+                .size(4, 9)
                 .title("§7Menu de Edição")
                 .build().open(player);
     }
 
     private void updateInventoryByServer(InventoryContents contents) {
         contents.set(1, 2, ClickableItem.of(
-                new ItemStackBuilder(Material.ITEM_FRAME).
+                new ItemStackBuilder(Material.NAME_TAG).
                         withName("§bAlterar nome do servidor").
                         withLore("§r", "§aClique aqui para alterar o nome do servidor.", "§r", "§aNome atual: "+server.getName()).buildStack(),
                 e -> {
@@ -51,11 +54,52 @@ public class ServerEditingInventory implements InventoryProvider {
                         server.setName(ChatColor.translateAlternateColorCodes('&',chatEvent.getMessage()));
                         plugin.getServerRepository().updateServer(server);
                         chatEvent.setCancelled(true);
-                        player.sendMessage("§aNome do servidor atualizado com sucesso.");
+                        player.sendMessage("§a§lSUCESSO! §aNome do servidor atualizado.");
                         open(player, server);
                     });
                 }));
+        contents.set(1, 3, ClickableItem.of(
+                new ItemStackBuilder(Material.ITEM_FRAME).
+                        withName("§bAlterar icone do servidor").
+                        withLore("§r", "§aClique aqui para alterar o icone do servidor (no menu).", "§r").buildStack(),
+                e -> {
+                    val player = (Player) e.getWhoClicked();
+                    player.closeInventory();
+                    player.sendMessage("§cEssa função está em desenvolvimento...");
 
+                }));
+        contents.set(1, 4, ClickableItem.of(
+                new ItemStackBuilder(Material.ITEM_FRAME).
+                        withName(String.format("§c%s manutenção", server.isMaintenance() ? "Desativar" : "Ativar")).
+                        withLore("§r", String.format("§aClique aqui para %s a manutenção.", server.isMaintenance() ? "§cdesativar§a" : "§cativar§a"), "§r").
+                        toSkullBuilder().
+                        withTexture(server.isMaintenance() ? "http://textures.minecraft.net/texture/61856c7b378d350262143843d1f9fbb21911a71983ba7b39a4d4ba5b66bedc6" : "http://textures.minecraft.net/texture/4b599c618e914c25a37d69f541a22bebbf751615263756f2561fab4cfa39e").
+                        buildSkull(),
+                e -> {
+                    val player = (Player) e.getWhoClicked();
+                    val maintenance = !server.isMaintenance();
+                    server.setMaintenance(maintenance);
+
+                    player.sendMessage("§a§lSUCESSO! Manutenção atualizada.");
+
+                }));
+        contents.set(1, 6, ClickableItem.of(
+                new ItemStackBuilder(Material.WEB).
+                        withName("§bAlterar servidor BungeeCord").
+                        withLore("§r", "§aClique aqui para alterar o servidor BungeeCord.", String.format("§aServidor atual: §e%s", server.getBungee()) , "§r").buildStack(),
+                e -> {
+                    val player = (Player) e.getWhoClicked();
+                    player.closeInventory();
+                    player.sendMessage("§r\n§aDigite o novo servidor do bungee. Exemplo: §erankup");
+                    plugin.awaitEventWithFilter(AsyncPlayerChatEvent.class, filter, event -> {
+                        val chatEvent = (AsyncPlayerChatEvent) event;
+                        server.setBungee(chatEvent.getMessage());
+                        plugin.getServerRepository().updateServer(server);
+                        chatEvent.setCancelled(true);
+                        player.sendMessage("§a§lSUCESSO! §aServidor bungeecord atualizado.");
+                        open(player, server);
+                    });
+                }));
     }
 
     @Override
@@ -65,6 +109,6 @@ public class ServerEditingInventory implements InventoryProvider {
 
     @Override
     public void update(Player player, InventoryContents inventoryContents) {
-
+        updateInventoryByServer(inventoryContents);
     }
 }

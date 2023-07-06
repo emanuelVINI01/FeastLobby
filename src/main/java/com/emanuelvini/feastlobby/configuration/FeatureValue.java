@@ -21,7 +21,27 @@ public class FeatureValue implements ConfigurationInjectable {
     @Getter
     private static final FeatureValue instance = new FeatureValue();
 
-    @ConfigField("set hp to min") private boolean setHpToMin;
+    //Configuração de proteção do Player
+
+    @ConfigField("player.set hp to min") private boolean setPlayerHpToMin;
+
+    @ConfigField("player.disable food") private boolean disablePlayerFood;
+
+    @ConfigField("player.disable damage") private boolean disablePlayerDamage;
+
+    //Configuração de proteção do mundo
+
+    @ConfigField("world.disable weather") private boolean disableWorldWeather;
+
+    @ConfigField("world.disable grow") private boolean disableWorldGrow;
+
+    @ConfigField("world.disable block place and break") private boolean disableWorldPlaceAndBreak;
+
+    @ConfigField("world.disable entity spawn") private boolean disableWorldEntitySpawn;
+
+    @ConfigField("world.disable pvp") private boolean disableWorldPvP;
+
+    @ConfigField("world.disable interact") private boolean disableWorldInteract;
 
     public static <T> T get(Function<FeatureValue, T> function) {
         return function.apply(instance);

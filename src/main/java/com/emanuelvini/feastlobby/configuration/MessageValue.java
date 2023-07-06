@@ -27,6 +27,8 @@ public class MessageValue implements ConfigurationInjectable {
 
     @ConfigField("not exists server") private String notExistsServer;
 
+    @ConfigField("not have permission to chat") private String notHavePermissionToChat;
+
     public static <T> T get(Function<MessageValue, T> function) {
         return function.apply(instance);
     }

@@ -1,6 +1,7 @@
 package com.emanuelvini.feastlobby.configuration.registry;
 
 import com.emanuelvini.feastlobby.FeastLobby;
+import com.emanuelvini.feastlobby.configuration.ChatValue;
 import com.emanuelvini.feastlobby.configuration.ErrorFixerValue;
 import com.emanuelvini.feastlobby.configuration.FeatureValue;
 import com.emanuelvini.feastlobby.configuration.MessageValue;
@@ -24,7 +25,8 @@ public class ConfigurationRegistry {
         configurationInjector.injectConfiguration(
                 MessageValue.instance(),
                 ErrorFixerValue.instance(),
-                FeatureValue.instance()
+                FeatureValue.instance(),
+                ChatValue.instance()
         );
 
     }
