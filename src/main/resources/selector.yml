@@ -1,0 +1,15 @@
+item:
+  name: "&aServidores"
+  lore:
+    - "&aClique aqui para selecionar um servidor"
+  enable custom skull: false
+  skull url: ""
+  material: COMPASS #Material do item (não se aplica a custom skull)
+  slot: 4 #Slot 0 e o inicial, o item será definido nesse slot do jogador.
+inventory:
+  name: "&aMenu de Servidores" #Nome do inventário
+  size: 36 #Precisa ser multiplo de nove, aqui e um inventário com quatro linhas
+  servers:
+    storm: #ID do Servidor
+      slot: 13 #Slot que ele irá ficar.
+

@@ -45,8 +45,5 @@ public class WorldListener implements Listener {
         if (FeatureValue.get(FeatureValue::disableWorldPvP)) e.setCancelled(true);
     }
 
-    @EventHandler
-    public void onInteract(PlayerInteractEvent e) {
-        if (FeatureValue.get(FeatureValue::disableWorldInteract)) e.setCancelled(true);
-    }
+
 }

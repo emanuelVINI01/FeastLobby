@@ -2,6 +2,8 @@ package com.emanuelvini.feastlobby;
 
 import com.emanuelvini.feastcore.bukkit.api.BukkitFeastPlugin;
 import com.emanuelvini.feastlobby.commands.LobbyAdminCommand;
+import com.emanuelvini.feastlobby.configuration.ChatValue;
+import com.emanuelvini.feastlobby.configuration.FeatureValue;
 import com.emanuelvini.feastlobby.configuration.MessageValue;
 import com.emanuelvini.feastlobby.configuration.registry.ConfigurationRegistry;
 import com.emanuelvini.feastlobby.listeners.ChatListener;
@@ -11,6 +13,8 @@ import com.emanuelvini.feastlobby.placeholder.LobbyPlaceholder;
 import com.emanuelvini.feastlobby.repository.ServerRepository;
 import lombok.Getter;
 import lombok.val;
+import me.clip.placeholderapi.PlaceholderAPI;
+import me.clip.placeholderapi.PlaceholderAPIPlugin;
 import me.saiintbrisson.bukkit.command.BukkitFrame;
 import me.saiintbrisson.minecraft.command.message.MessageType;
 import org.bukkit.Bukkit;
@@ -75,19 +79,48 @@ public class FeastLobby extends BukkitFeastPlugin {
         getCustomLogger().log("Carregando eventos...", "e");
 
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
-        Bukkit.getPluginManager().registerEvents(new ChatListener(), this);
         Bukkit.getPluginManager().registerEvents(new WorldListener(), this);
 
         getCustomLogger().log("Eventos carregados com sucesso.", "a");
+
+        getCustomLogger().log("Carregando sistema de chat...", "e");
+
+        if (ChatValue.get(ChatValue::enabled)) {
+            Bukkit.getPluginManager().registerEvents(new ChatListener(), this);
+            getCustomLogger().log("Sistema de chat carregado com sucesso.", "a");
+        } else {
+            getCustomLogger().log("Carregando interrompido: Sistema de chat desativado.", "c");
+        }
 
         getCustomLogger().log("Registrando palceholders...", "e");
 
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") == null) {
             getCustomLogger().log("PlaceholderAPI não está instalado! Hook desativado.", "c");
         } else {
-            new LobbyPlaceholder().register();
 
-            getCustomLogger().log("Placeholders registrados com sucesso.", "a");
+            Bukkit.getScheduler().scheduleSyncDelayedTask(this, () -> {
+                if (!PlaceholderAPI.isRegistered("player")) {
+                    getCustomLogger().log("Expansão §fplayer§6 não encontrada, baixando...", "6");
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "papi ecloud download player");
+                }
+
+                if (!PlaceholderAPI.isRegistered("bungee")) {
+                    getCustomLogger().log("Expansão §fbungee§6 não encontrada, baixando...", "6");
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "papi ecloud download bungee");
+                }
+                if (Bukkit.getPluginManager().getPlugin("LuckPerms") != null && !PlaceholderAPI.isRegistered("luckperms")) {
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "papi ecloud download luckperms");
+                }
+                if (!PlaceholderAPI.isRegistered("bungee") || !PlaceholderAPI.isRegistered("player")) {
+                    getCustomLogger().log("Reiniciando servidor para aplicar expansões necessárias...", "6");
+                    Bukkit.getServer().shutdown();
+                }
+
+
+                new LobbyPlaceholder().register();
+
+                getCustomLogger().log("Placeholders registrados com sucesso.", "a");
+            }, 20L * 10);
         }
 
     }

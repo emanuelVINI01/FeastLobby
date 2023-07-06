@@ -29,6 +29,11 @@ public class FeatureValue implements ConfigurationInjectable {
 
     @ConfigField("player.disable damage") private boolean disablePlayerDamage;
 
+    @ConfigField("player.disable item drop") private boolean disablePlayerItemDrop;
+
+    @ConfigField("player.clear inventory") private boolean clearPlayerInventory;
+
+
     //Configuração de proteção do mundo
 
     @ConfigField("world.disable weather") private boolean disableWorldWeather;
@@ -41,7 +46,7 @@ public class FeatureValue implements ConfigurationInjectable {
 
     @ConfigField("world.disable pvp") private boolean disableWorldPvP;
 
-    @ConfigField("world.disable interact") private boolean disableWorldInteract;
+    @ConfigField("world.disable block interact") private boolean disableWorldBlockInteract;
 
     public static <T> T get(Function<FeatureValue, T> function) {
         return function.apply(instance);
