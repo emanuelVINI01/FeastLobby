@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.emanuelvini</groupId>
+    <artifactId>FeastLobby</artifactId>
+    <version>1.0-BETA</version>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+    <repositories>
+        <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+        <repository>
+            <id>codemc-repo</id>
+            <url>https://repo.codemc.org/repository/maven-public/</url>
+            <layout>default</layout>
+        </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+    <dependencies>
+
+        <dependency>
+            <groupId>de.tr7zw</groupId>
+            <artifactId>item-nbt-api-plugin</artifactId>
+            <version>2.11.3</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.SaiintBrisson.command-framework</groupId>
+            <artifactId>bukkit</artifactId>
+            <version>1.2.0</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.SaiintBrisson.command-framework</groupId>
+            <artifactId>shared</artifactId>
+            <version>1.2.0</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.HenryFabio.configuration-injector</groupId>
+            <artifactId>bukkit</artifactId>
+            <version>1.0.2</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.8.8-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>fr.minuskube.inv</groupId>
+            <artifactId>smart-invs</artifactId>
+            <version>1.2.7</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.emanuelvini</groupId>
+            <artifactId>FeastCore</artifactId>
+            <version>0.5-ALPHA</version>
+            <scope>system</scope>
+            <systemPath>C:/Users/emanuel/Desktop/Feast/plugins/FeastCore/target/FeastCore-0.5-ALPHA-shaded.jar</systemPath>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.5.0</version>
+                <configuration>
+                    <!-- put your configurations here -->
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

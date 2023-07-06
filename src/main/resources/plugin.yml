@@ -1,0 +1,17 @@
+name: FeastLobby
+version: 1.0-BETA
+main: com.emanuelvini.feastlobby.FeastLobby
+author: emanuelVINI
+permissions:
+  feastlobby.admin.criar:
+    default: "op"
+    description: "Permissão para usar o /lobbyadmin criar"
+  feastlobby.admin.editarservidor:
+    default: "op"
+    description: "Permissão para usar o /lobbyadmin editarservidor"
+  feastlobby.admin:
+    default: "op"
+    description: "Permissão para usar todos comandos do /lobbyadmin"
+    children:
+      - "feastlobby.admin.criar"
+      - "feastlobby.admin.editarservidor"

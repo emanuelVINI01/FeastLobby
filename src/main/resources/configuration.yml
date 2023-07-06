@@ -1,0 +1,18 @@
+# Configuração principal do Plugin
+# by emanuelVINI
+#
+# ___________                     __    .____         ___.  ___.           ____   ________
+# \_   _____/___ _____    _______/  |_  |    |    ____\_ |__\_ |__ ___.__. \   \ /   /_   |
+# |    __)/ __ \\__  \  /  ___/\   __\ |    |   /  _ \| __ \| __ <   |  |  \   Y   / |   |
+# |     \\  ___/ / __ \_\___ \  |  |   |    |__(  <_> ) \_\ \ \_\ \___  |   \     /  |   |
+# \___  / \___  >____  /____  > |__|   |_______ \____/|___  /___  / ____|    \___/   |___|
+# \/      \/     \/     \/                 \/         \/    \/\/
+
+error fixer:
+  #Se você estiver com erros de SQL no plugin, ative essa opção e reinicie seu servidor, depois desligue ele e desative.
+  delete table: false #Essa opção ira deletar a tabela e criar novamente.
+
+features:
+  #Define se o plugin irá setar a vida para o minimo
+  set hp to min: true # O minimo de vida é meio coração.
+
