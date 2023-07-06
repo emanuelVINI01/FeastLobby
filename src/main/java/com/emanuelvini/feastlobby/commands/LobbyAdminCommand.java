@@ -20,7 +20,11 @@ import java.util.function.Predicate;
 
 public class LobbyAdminCommand {
 
-    private ServerRepository repository = FeastLobby.getInstance().getServerRepository();
+    private ServerRepository repository;
+
+    public LobbyAdminCommand() {
+        repository = FeastLobby.getInstance().getServerRepository();
+    }
 
     @Command(
             name = "lobbyadmin",
@@ -69,6 +73,7 @@ public class LobbyAdminCommand {
                 "§r\n§aDigite o id do servidor que será usado para editar. Exemplo: §erankupalgo\n");
         plugin.awaitEventWithFilter(AsyncPlayerChatEvent.class, filter, event -> {
             val chatEventId = (AsyncPlayerChatEvent) event;
+            chatEventId.setCancelled(true);
             if (repository.getServer(chatEventId.getMessage()) != null) {
                 player.sendMessage("§cJá existe um servidor com esse ID.");
                 return;

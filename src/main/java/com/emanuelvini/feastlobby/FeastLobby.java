@@ -37,16 +37,6 @@ public class FeastLobby extends BukkitFeastPlugin {
                 "§d \\___  / \\___  >____  /____  > |__|   |_______ \\____/|___  /___  / ____|    \\___/   |___|\n" +
                 "§d     \\/      \\/     \\/     \\/                 \\/         \\/    \\/\\/                      \n", "b");
 
-        getCustomLogger().log("Carregando comandos...", "e");
-        //Registra o BukkitFrame da API (CommandFramework)
-
-        val frame = new BukkitFrame(this);
-
-        frame.getMessageHolder().setMessage(MessageType.NO_PERMISSION, MessageValue.get(MessageValue::notHavePermission));
-        frame.getMessageHolder().setMessage(MessageType.ERROR, MessageValue.get(MessageValue::errorOccurred));
-
-        frame.registerCommands(new LobbyAdminCommand());
-
         getCustomLogger().log("Comandos carregados com sucesso.", "a");
 
         //Injeção de configurações (Configuration-Injector)
@@ -65,6 +55,16 @@ public class FeastLobby extends BukkitFeastPlugin {
         serverRepository = new ServerRepository(this);
 
         getCustomLogger().log("Servidores carregados com sucesso.", "a");
+
+        getCustomLogger().log("Carregando comandos...", "e");
+        //Registra o BukkitFrame da API (CommandFramework)
+
+        val frame = new BukkitFrame(this);
+
+        frame.getMessageHolder().setMessage(MessageType.NO_PERMISSION, MessageValue.get(MessageValue::notHavePermission));
+        frame.getMessageHolder().setMessage(MessageType.ERROR, MessageValue.get(MessageValue::errorOccurred));
+
+        frame.registerCommands(new LobbyAdminCommand());
 
         getCustomLogger().log("Carregando eventos...", "e");
 

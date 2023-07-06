@@ -65,7 +65,7 @@ public class ServerRepository {
 
     @SneakyThrows
     public void saveServer(Server server) {
-        executor.updateQuery("INSERT INTO servers VALUES(?,?,?,?,?,?,?)", statement -> {
+        executor.updateQuery("INSERT INTO servers VALUES(?,?,?,?,?,?)", statement -> {
             statement.set(1, server.getId());
             statement.set(2, server.getName());
             statement.set(3, server.getBungee());
