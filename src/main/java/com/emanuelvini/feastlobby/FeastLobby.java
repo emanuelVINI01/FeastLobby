@@ -1,6 +1,7 @@
 package com.emanuelvini.feastlobby;
 
 import com.emanuelvini.feastcore.bukkit.api.BukkitFeastPlugin;
+import com.emanuelvini.feastlobby.channel.BungeeCordChannel;
 import com.emanuelvini.feastlobby.commands.LobbyAdminCommand;
 import com.emanuelvini.feastlobby.configuration.ChatValue;
 import com.emanuelvini.feastlobby.configuration.FeatureValue;
@@ -23,6 +24,9 @@ public class FeastLobby extends BukkitFeastPlugin {
 
     @Getter
     private ServerRepository serverRepository;
+
+    @Getter
+    private BungeeCordChannel bungeeCordChannel;
 
     @Getter
     private static FeastLobby instance;
@@ -91,6 +95,12 @@ public class FeastLobby extends BukkitFeastPlugin {
         } else {
             getCustomLogger().log("Carregando interrompido: Sistema de chat desativado.", "c");
         }
+
+        getCustomLogger().log("Registrando canais...", "e");
+
+        bungeeCordChannel = new BungeeCordChannel(this);
+
+        getCustomLogger().log("Canais registrados com sucesso!", "a");
 
         getCustomLogger().log("Registrando palceholders...", "e");
 

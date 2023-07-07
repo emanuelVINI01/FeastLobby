@@ -2,3 +2,7 @@ not have permission: "&c&lERRO! &cVocê não tem permissão para executar esse c
 error occurred: "&c&lERRO! &cHouve uma falha ao executar esse comando."
 not exists server: "&c&lERRO! &cNão existe nenhum servidor com esse ID."
 not have permission to chat: "&c&lERRO! &cVocê não tem permissão para falar no chat."
+server is in maintenance: "&c&lERRO! &cEsse servidor está em manutenção."
+position in file: "&eSua posição na fila de {server_name}&e é #{position}."
+joined in file: "&eVocê entrou na fila do {server_name}&e na posição #{position}."
+leave file: "&cVocê saiu da fila do {server_name}."

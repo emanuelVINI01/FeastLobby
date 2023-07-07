@@ -26,7 +26,8 @@ public class ConfigurationRegistry {
                 ErrorFixerValue.instance(),
                 FeatureValue.instance(),
                 ChatValue.instance(),
-                SelectorValue.instance()
+                SelectorValue.instance(),
+                FileValue.instance()
         );
         System.out.println(configurationInjector.getConfigurationLoader().getConfigurations().keySet());
         SelectorValue.servers((ConfigurationSection) configurationInjector.getConfigurationLoader().getConfigurations().get("selector.yml").get("inventory.servers"));

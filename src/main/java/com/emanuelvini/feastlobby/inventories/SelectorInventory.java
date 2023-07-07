@@ -1,6 +1,8 @@
 package com.emanuelvini.feastlobby.inventories;
 
 import com.emanuelvini.feastlobby.FeastLobby;
+import com.emanuelvini.feastlobby.configuration.FileValue;
+import com.emanuelvini.feastlobby.configuration.MessageValue;
 import com.emanuelvini.feastlobby.configuration.SelectorValue;
 import com.emanuelvini.feastlobby.model.Server;
 import com.emanuelvini.feastlobby.repository.ServerRepository;
@@ -10,7 +12,11 @@ import fr.minuskube.inv.content.InventoryContents;
 import fr.minuskube.inv.content.InventoryProvider;
 import lombok.AllArgsConstructor;
 import lombok.val;
+import me.clip.placeholderapi.PlaceholderAPI;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 public class SelectorInventory implements InventoryProvider {
@@ -25,7 +31,7 @@ public class SelectorInventory implements InventoryProvider {
                 build().open(player);
     }
 
-    private void updateServers(InventoryContents contents) {
+    private void updateServers(Player player, InventoryContents contents) {
         val section = SelectorValue.servers();
         for (String key : section.getKeys(false)) {
             Server server =  repository.getServer(key);
@@ -35,8 +41,27 @@ public class SelectorInventory implements InventoryProvider {
                 val slot = section.getInt(String.format("%s.slot", key));
                 val row = Math.round(slot/9);
                 val column = Math.round(slot % 9);
-                contents.set(row, column, ClickableItem.of(server.getItem(), e -> {
-                    e.getWhoClicked().sendMessage(server.getName());
+                val updatedServerItem = server.getItem();
+                updatedServerItem.getItemMeta().setLore(updatedServerItem.getItemMeta().getLore().stream().map(s -> PlaceholderAPI.setPlaceholders(player, s)).collect(Collectors.toList()));
+                updatedServerItem.getItemMeta().setDisplayName(PlaceholderAPI.setPlaceholders(player, updatedServerItem.getItemMeta().getDisplayName()));
+                contents.set(row, column, ClickableItem.of(updatedServerItem, e -> {
+                    Bukkit.getScheduler().runTaskAsynchronously(FeastLobby.getInstance(), () -> {
+                        if (server.isMaintenance() && !player.hasPermission("feastlobby.bypass.maintenance")) {
+                            player.sendMessage(MessageValue.get(MessageValue::serverIsInMaintenance));
+                            return;
+                        }
+                        if (player.hasPermission(String.format("feastlobby.bypass.file.%s", server.getId()))) {
+                            server.sendPlayerTo(player);
+                            return;
+                        }
+                        if (FileValue.get(FileValue::closeInventoryOnJoinLeave)) player.closeInventory();
+
+                       if (server.isInFile(player)) {
+                           server.removeFromFile(player);
+                       } else {
+                           server.joinFile(player);
+                       }
+                    });
                 }));
             }
         }
@@ -44,11 +69,11 @@ public class SelectorInventory implements InventoryProvider {
 
     @Override
     public void init(Player player, InventoryContents inventoryContents) {
-        updateServers(inventoryContents);
+        updateServers(player, inventoryContents);
     }
 
     @Override
     public void update(Player player, InventoryContents inventoryContents) {
-        updateServers(inventoryContents);
+        updateServers(player, inventoryContents);
     }
 }

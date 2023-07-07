@@ -10,6 +10,7 @@ import fr.minuskube.inv.content.InventoryContents;
 import fr.minuskube.inv.content.InventoryProvider;
 import lombok.AllArgsConstructor;
 import lombok.val;
+import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -52,7 +53,7 @@ public class ServerEditingInventory implements InventoryProvider {
                     plugin.awaitEventWithFilter(AsyncPlayerChatEvent.class, filter, event -> {
                         val chatEvent = (AsyncPlayerChatEvent) event;
                         server.setName(ChatColor.translateAlternateColorCodes('&',chatEvent.getMessage()));
-                        plugin.getServerRepository().updateServer(server);
+                        repository.updateServer(server);
                         chatEvent.setCancelled(true);
                         player.sendMessage("§a§lSUCESSO! §aNome do servidor atualizado.");
                         open(player, server);
@@ -68,7 +69,20 @@ public class ServerEditingInventory implements InventoryProvider {
                     player.sendMessage("§cEssa função está em desenvolvimento...");
 
                 }));
-        contents.set(1, 4, ClickableItem.of(
+        contents.set(1, 4, ClickableItem.empty(
+                new ItemStackBuilder(server.getItem().getType()).
+                        withName("§eInformações do servidor").
+                        withLore(
+                                "§r",
+                                String.format("§aID: %s", server.getId()),
+                                String.format("§aNome atual: %s.", server.getName()),
+                                String.format("§aServidor atual: §e%s", server.getBungee()),
+                                String.format("§aEndereço IP: %s", server.getAddress()),
+                                String.format("§aStatus: %s", server.isMaintenance() ? "§cManutenção§a" :
+                                        PlaceholderAPI.setPlaceholders(null, String.format("§aOnline | %%bungee_%s%%", server.getBungee()))),
+                                "§r").
+                        buildStack()));
+        contents.set(1, 5, ClickableItem.of(
                 new ItemStackBuilder(Material.ITEM_FRAME).
                         withName(String.format("§c%s manutenção", server.isMaintenance() ? "Desativar" : "Ativar")).
                         withLore("§r", String.format("§aClique aqui para %s a manutenção.", server.isMaintenance() ? "§cdesativar§a" : "§cativar§a"), "§r").
@@ -79,11 +93,12 @@ public class ServerEditingInventory implements InventoryProvider {
                     val player = (Player) e.getWhoClicked();
                     val maintenance = !server.isMaintenance();
                     server.setMaintenance(maintenance);
-
+                    repository.updateServer(server);
+                    server.clearFile();
                     player.sendMessage("§a§lSUCESSO! Manutenção atualizada.");
 
                 }));
-        contents.set(1, 6, ClickableItem.of(
+        contents.set(1, 7, ClickableItem.of(
                 new ItemStackBuilder(Material.WEB).
                         withName("§bAlterar servidor BungeeCord").
                         withLore("§r", "§aClique aqui para alterar o servidor BungeeCord.", String.format("§aServidor atual: §e%s", server.getBungee()) , "§r").buildStack(),
@@ -94,12 +109,13 @@ public class ServerEditingInventory implements InventoryProvider {
                     plugin.awaitEventWithFilter(AsyncPlayerChatEvent.class, filter, event -> {
                         val chatEvent = (AsyncPlayerChatEvent) event;
                         server.setBungee(chatEvent.getMessage());
-                        plugin.getServerRepository().updateServer(server);
+                        repository.updateServer(server);
                         chatEvent.setCancelled(true);
                         player.sendMessage("§a§lSUCESSO! §aServidor bungeecord atualizado.");
                         open(player, server);
                     });
                 }));
+
     }
 
     @Override

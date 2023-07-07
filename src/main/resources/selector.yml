@@ -12,4 +12,3 @@ inventory:
   servers:
     storm: #ID do Servidor
       slot: 13 #Slot que ele irá ficar.
-

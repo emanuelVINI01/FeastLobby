@@ -29,6 +29,14 @@ public class MessageValue implements ConfigurationInjectable {
 
     @ConfigField("not have permission to chat") private String notHavePermissionToChat;
 
+    @ConfigField("server is in maintenance") private String serverIsInMaintenance;
+
+    @ConfigField("position in file") private String positionInFile;
+
+    @ConfigField("joined in file") private String joinedInFile;
+
+    @ConfigField("leave file") private String leaveFile;
+
     public static <T> T get(Function<MessageValue, T> function) {
         return function.apply(instance);
     }
