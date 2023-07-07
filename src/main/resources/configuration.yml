@@ -22,6 +22,10 @@
 # feastlobby.bypass.maintenance: Permissão para entrar em manutenção
 # feastlobby.bypass.file.id do servidor: Permissão para burlar a fila daquele servidor
 
+# Placeholders:
+
+# %feastlobby_id do servidor%: Retorna Manutenção ou a quantidade online
+
 error fixer:
   #Se você estiver com erros de SQL no plugin, ative essa opção e reinicie seu servidor, depois desligue ele e desative.
   delete table: false #Essa opção irá deletar a tabela e criar novamente.

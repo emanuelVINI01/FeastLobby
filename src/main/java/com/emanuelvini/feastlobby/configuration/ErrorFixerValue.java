@@ -24,6 +24,7 @@ public class ErrorFixerValue implements ConfigurationInjectable {
 
     @ConfigField("delete table") private boolean deleteTable;
 
+    @ConfigField("debug") private boolean debug;
 
     public static <T> T get(Function<ErrorFixerValue, T> function) {
         return function.apply(instance);
