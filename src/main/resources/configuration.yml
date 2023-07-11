@@ -35,7 +35,8 @@ features:
   #Sistema de chat do plugin
   chat:
     enabled: true
-    format: "%luckperms_prefix%%player_name%&f: {message}"
+    #Suporta placeholders do PAPI
+    format: "&7%name%&f: {message}"
   #Configurações de proteção do mundo
   world:
     disable weather: true #Desabilita a chuva
@@ -44,6 +45,7 @@ features:
     disable entity spawn: true #Desabilita o nascimento de entidades
     disable pvp: true #Desabilita o PvP no lobby
     disable block interact: true #Desabilita interações com blocos
+    always day: true #Deixa o mundo sempre de dia
   #Configurações de proteção do player
   player:
     disable food: true #A fome sempre ficará cheia.

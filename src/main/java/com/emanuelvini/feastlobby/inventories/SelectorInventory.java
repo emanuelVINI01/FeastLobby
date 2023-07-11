@@ -12,7 +12,6 @@ import fr.minuskube.inv.content.InventoryContents;
 import fr.minuskube.inv.content.InventoryProvider;
 import lombok.AllArgsConstructor;
 import lombok.val;
-import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -27,6 +26,7 @@ public class SelectorInventory implements InventoryProvider {
         SmartInventory.builder().
                 size(SelectorValue.get(SelectorValue::inventorySize)/9, 9).
                 title(SelectorValue.get(SelectorValue::inventoryName)).
+                id(String.valueOf(Math.random() * Math.random())).
                 provider(new SelectorInventory(FeastLobby.getInstance().getServerRepository())).
                 build().open(player);
     }
@@ -41,28 +41,52 @@ public class SelectorInventory implements InventoryProvider {
                 val slot = section.getInt(String.format("%s.slot", key));
                 val row = Math.round(slot/9);
                 val column = Math.round(slot % 9);
-                val updatedServerItem = server.getItem();
-                updatedServerItem.getItemMeta().setLore(updatedServerItem.getItemMeta().getLore().stream().map(s -> PlaceholderAPI.setPlaceholders(player, s)).collect(Collectors.toList()));
-                updatedServerItem.getItemMeta().setDisplayName(PlaceholderAPI.setPlaceholders(player, updatedServerItem.getItemMeta().getDisplayName()));
-                contents.set(row, column, ClickableItem.of(updatedServerItem, e -> {
-                    Bukkit.getScheduler().runTaskAsynchronously(FeastLobby.getInstance(), () -> {
-                        if (server.isMaintenance() && !player.hasPermission("feastlobby.bypass.maintenance")) {
-                            player.sendMessage(MessageValue.get(MessageValue::serverIsInMaintenance));
-                            return;
-                        }
-                        if (player.hasPermission(String.format("feastlobby.bypass.file.%s", server.getId()))) {
-                            server.sendPlayerTo(player);
-                            return;
-                        }
-                        if (FileValue.get(FileValue::closeInventoryOnJoinLeave)) player.closeInventory();
+                val updatedServerItem = server.getItem().clone();
+                if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+                    val meta = updatedServerItem.getItemMeta();
+                    meta.setLore(updatedServerItem.getItemMeta().getLore().stream().map(s -> me.clip.placeholderapi.PlaceholderAPI.setPlaceholders(player, s)).collect(Collectors.toList()));
+                    meta.setDisplayName(me.clip.placeholderapi.PlaceholderAPI.setPlaceholders(player, updatedServerItem.getItemMeta().getDisplayName()));
+                    updatedServerItem.setItemMeta(meta);
+                    contents.set(row, column, ClickableItem.of(updatedServerItem, e -> {
+                        Bukkit.getScheduler().runTaskAsynchronously(FeastLobby.getInstance(), () -> {
+                            if (server.isMaintenance() && !player.hasPermission("feastlobby.bypass.maintenance")) {
+                                player.sendMessage(MessageValue.get(MessageValue::serverIsInMaintenance));
+                                return;
+                            }
+                            if (player.hasPermission(String.format("feastlobby.bypass.file.%s", server.getId()))) {
+                                server.sendPlayerTo(player);
+                                return;
+                            }
+                            if (FileValue.get(FileValue::closeInventoryOnJoinLeave)) player.closeInventory();
 
-                       if (server.isInFile(player)) {
-                           server.removeFromFile(player);
-                       } else {
-                           server.joinFile(player);
-                       }
-                    });
-                }));
+                            if (server.isInFile(player)) {
+                                server.removeFromFile(player);
+                            } else {
+                                server.joinFile(player);
+                            }
+                        });
+                    }));
+                } else {
+                    contents.set(row, column, ClickableItem.of(updatedServerItem, e -> {
+                        Bukkit.getScheduler().runTaskAsynchronously(FeastLobby.getInstance(), () -> {
+                            if (server.isMaintenance() && !player.hasPermission("feastlobby.bypass.maintenance")) {
+                                player.sendMessage(MessageValue.get(MessageValue::serverIsInMaintenance));
+                                return;
+                            }
+                            if (player.hasPermission(String.format("feastlobby.bypass.file.%s", server.getId()))) {
+                                server.sendPlayerTo(player);
+                                return;
+                            }
+                            if (FileValue.get(FileValue::closeInventoryOnJoinLeave)) player.closeInventory();
+
+                            if (server.isInFile(player)) {
+                                server.removeFromFile(player);
+                            } else {
+                                server.joinFile(player);
+                            }
+                        });
+                    }));
+                }
             }
         }
     }

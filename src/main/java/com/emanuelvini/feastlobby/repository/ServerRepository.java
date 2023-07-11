@@ -52,6 +52,14 @@ public class ServerRepository {
     private void reloadServers() {
         servers.clear();
         executor.resultManyQuery("SELECT * FROM servers", k -> {}, ServerAdapter.class).forEach(server -> {
+            if (servers.containsKey(server.getId())) {
+                plugin.getCustomLogger().log(String.format("Servidor duplicado encontrado!!! ID: §f%s§c NOME: §f%s", server.getId(), server.getName()), "c");
+                executor.updateQuery("DELETE FROM servers WHERE id = ? AND bungee = ?", statement -> {
+                    statement.set(1, server.getId());
+                    statement.set(2, server.getBungee());
+                });
+                return;
+            }
             servers.put(server.getId(), server);
             plugin.getCustomLogger().log(String.format("Servidor §f%s§a carregado com sucesso!", server.getName()), "a");
         });
@@ -77,9 +85,8 @@ public class ServerRepository {
 
     @SneakyThrows
     public void updateServer(Server server) {
-        executor.updateQuery("DELETE FROM servers WHERE name = ? AND bungee = ?", statement -> {
-           statement.set(1, server.getName());
-           statement.set(2, server.getBungee());
+        executor.updateQuery("DELETE FROM servers WHERE id = ?", statement -> {
+            statement.set(1, server.getId());
         });
         saveServer(server);
     }

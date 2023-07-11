@@ -5,17 +5,18 @@ import com.emanuelvini.feastlobby.channel.BungeeCordChannel;
 import com.emanuelvini.feastlobby.commands.LobbyAdminCommand;
 import com.emanuelvini.feastlobby.configuration.ChatValue;
 import com.emanuelvini.feastlobby.configuration.FeatureValue;
+import com.emanuelvini.feastlobby.configuration.FileValue;
 import com.emanuelvini.feastlobby.configuration.MessageValue;
 import com.emanuelvini.feastlobby.configuration.registry.ConfigurationRegistry;
 import com.emanuelvini.feastlobby.listeners.ChatListener;
 import com.emanuelvini.feastlobby.listeners.PlayerListener;
 import com.emanuelvini.feastlobby.listeners.WorldListener;
+import com.emanuelvini.feastlobby.model.Server;
 import com.emanuelvini.feastlobby.placeholder.LobbyPlaceholder;
 import com.emanuelvini.feastlobby.repository.ServerRepository;
 import lombok.Getter;
 import lombok.val;
 import me.clip.placeholderapi.PlaceholderAPI;
-import me.clip.placeholderapi.PlaceholderAPIPlugin;
 import me.saiintbrisson.bukkit.command.BukkitFrame;
 import me.saiintbrisson.minecraft.command.message.MessageType;
 import org.bukkit.Bukkit;
@@ -23,13 +24,11 @@ import org.bukkit.Bukkit;
 public class FeastLobby extends BukkitFeastPlugin {
 
     @Getter
+    private static FeastLobby instance;
+    @Getter
     private ServerRepository serverRepository;
-
     @Getter
     private BungeeCordChannel bungeeCordChannel;
-
-    @Getter
-    private static FeastLobby instance;
 
     @Override
     public void setupDependencies() {
@@ -96,11 +95,32 @@ public class FeastLobby extends BukkitFeastPlugin {
             getCustomLogger().log("Carregando interrompido: Sistema de chat desativado.", "c");
         }
 
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
+            try {
+                serverRepository.getServers().forEach(Server::updateFile);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }, 5L, (20L * FileValue.get(FileValue::delay)/1000));
+
         getCustomLogger().log("Registrando canais...", "e");
+
+
 
         bungeeCordChannel = new BungeeCordChannel(this);
 
         getCustomLogger().log("Canais registrados com sucesso!", "a");
+
+        if (FeatureValue.get(FeatureValue::worldAlwaysDay)) {
+            Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
+                Bukkit.getWorlds().forEach(world -> {
+                    if (world.getTime() != 1000) {
+                        world.setTime(1000);
+                    }
+                });
+            }, 1L, 20L * 10);
+        }
+
 
         getCustomLogger().log("Registrando palceholders...", "e");
 

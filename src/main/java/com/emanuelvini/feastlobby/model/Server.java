@@ -20,19 +20,13 @@ import java.util.List;
 @Setter
 public class Server {
 
-    private String id;
-
-    private String name;
-
-    private String bungee;
-
-    private String address;
-
-    private ItemStack item;
-
-    private boolean maintenance;
-
     private final List<String> file = new ArrayList<>();
+    private String id;
+    private String name;
+    private String bungee;
+    private String address;
+    private ItemStack item;
+    private boolean maintenance;
 
     public boolean isInFile(Player player) {
         if (ErrorFixerValue.get(ErrorFixerValue::debug)) FeastLobby.getInstance().getCustomLogger().
@@ -62,29 +56,33 @@ public class Server {
         file.clear();
     }
 
+    @SneakyThrows
     public void updateFile() {
         if (ErrorFixerValue.get(ErrorFixerValue::debug)) FeastLobby.getInstance().getCustomLogger().
                 log("[DEBUG] A fila está sendo atualizada...", "6");
         if (file.size() != 0) {
-            file.forEach(name -> {
-                val player = Bukkit.getPlayer(name);
-                if (player == null) {
-                    file.remove(name);
+            new ArrayList<>(file).forEach(name -> {
+                {
+                    val player = Bukkit.getPlayer(name);
+                    if (player == null) {
+                        file.remove(name);
+                        return;
+                    }
+                    val position = file.indexOf(name);
+                    if (ErrorFixerValue.get(ErrorFixerValue::debug)) FeastLobby.getInstance().getCustomLogger().
+                            log(String.format("[DEBUG] O jogador §f%s§6 está na posição %d da fila.", player.getName(), position), "6");
+                    val message = MessageValue.get(MessageValue::positionInFile).
+                            replace("{server_name}", name).
+                            replace("{position}", String.valueOf(position));
+                    if (ErrorFixerValue.get(ErrorFixerValue::debug)) FeastLobby.getInstance().getCustomLogger().
+                            log(String.format("[DEBUG] Mensagem gerada da fila: %s", message), "6");
+                    if (FileValue.get(FileValue::enableActionbarMessage)) {
+                        ActionBarUtil.sendActionBar(player, message);
+                    }
+                    if (FileValue.get(FileValue::enableChatMessage)) {
+                        player.sendMessage(message);
+                    }
                     return;
-                }
-                val position = file.indexOf(name) - 1;
-                if (ErrorFixerValue.get(ErrorFixerValue::debug)) FeastLobby.getInstance().getCustomLogger().
-                        log(String.format("[DEBUG] O jogador §f%s§6 está na posição %d da fila.", player.getName(), position), "6");
-                val message = MessageValue.get(MessageValue::positionInFile).
-                        replace("{server_name}", name).
-                        replace("{position}", String.valueOf(position));
-                if (ErrorFixerValue.get(ErrorFixerValue::debug)) FeastLobby.getInstance().getCustomLogger().
-                        log(String.format("[DEBUG] Mensagem gerada da fila: %s", message), "6");
-                if (FileValue.get(FileValue::enableActionbarMessage)) {
-                    ActionBarUtil.sendActionBar(player, message);
-                }
-                if (FileValue.get(FileValue::enableChatMessage)) {
-                    player.sendMessage(message);
                 }
             });
 
@@ -105,7 +103,7 @@ public class Server {
     }
 
     public void sendPlayerTo(Player player) {
-        FeastLobby.getInstance().getBungeeCordChannel().sendPlayerToServer(player,bungee);
+        FeastLobby.getInstance().getBungeeCordChannel().sendPlayerToServer(player, bungee);
     }
 
 

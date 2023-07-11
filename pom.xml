@@ -85,9 +85,9 @@
         <dependency>
             <groupId>com.emanuelvini</groupId>
             <artifactId>FeastCore</artifactId>
-            <version>0.5-ALPHA</version>
+            <version>1.0-SNAPSHOT</version>
             <scope>system</scope>
-            <systemPath>C:/Users/emanuel/Desktop/Feast/plugins/FeastCore/target/FeastCore-0.5-ALPHA-shaded.jar</systemPath>
+            <systemPath>C:/Users/emanuel/Desktop/Feast/plugins/FeastCore/target/FeastCore-1.0-SNAPSHOT-shaded.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>me.clip</groupId>

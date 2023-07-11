@@ -48,6 +48,8 @@ public class FeatureValue implements ConfigurationInjectable {
 
     @ConfigField("world.disable block interact") private boolean disableWorldBlockInteract;
 
+    @ConfigField("world.always day") private boolean worldAlwaysDay;
+
     public static <T> T get(Function<FeatureValue, T> function) {
         return function.apply(instance);
     }
