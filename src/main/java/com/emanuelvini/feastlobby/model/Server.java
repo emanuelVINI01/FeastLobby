@@ -68,7 +68,7 @@ public class Server {
                         file.remove(name);
                         return;
                     }
-                    val position = file.indexOf(name);
+                    val position = file.indexOf(name) == 0 ? 1 : file.indexOf(name);
                     if (ErrorFixerValue.get(ErrorFixerValue::debug)) FeastLobby.getInstance().getCustomLogger().
                             log(String.format("[DEBUG] O jogador §f%s§6 está na posição %d da fila.", player.getName(), position), "6");
                     val message = MessageValue.get(MessageValue::positionInFile).

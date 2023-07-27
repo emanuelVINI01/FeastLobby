@@ -44,7 +44,8 @@ public class SelectorInventory implements InventoryProvider {
                 val updatedServerItem = server.getItem().clone();
                 if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
                     val meta = updatedServerItem.getItemMeta();
-                    meta.setLore(updatedServerItem.getItemMeta().getLore().stream().map(s -> me.clip.placeholderapi.PlaceholderAPI.setPlaceholders(player, s)).collect(Collectors.toList()));
+                    if (meta.hasLore())
+                        meta.setLore(updatedServerItem.getItemMeta().getLore().stream().map(s -> me.clip.placeholderapi.PlaceholderAPI.setPlaceholders(player, s)).collect(Collectors.toList()));
                     meta.setDisplayName(me.clip.placeholderapi.PlaceholderAPI.setPlaceholders(player, updatedServerItem.getItemMeta().getDisplayName()));
                     updatedServerItem.setItemMeta(meta);
                     contents.set(row, column, ClickableItem.of(updatedServerItem, e -> {

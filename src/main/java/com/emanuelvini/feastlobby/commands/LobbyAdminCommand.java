@@ -43,7 +43,7 @@ public class LobbyAdminCommand {
     @Command(
             name = "lobbyadmin.editarservidor",
             permission = "feastlobby.admin.editarservidor",
-            usage = "§c/lobbyadmin editarservidor <id>"
+            usage = "§c/lobbyadmin editar <id>"
     )
     public void onEdit(Context<Player> context, String id) {
         val server = repository.getServer(id);

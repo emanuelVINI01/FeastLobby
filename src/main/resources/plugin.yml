@@ -23,4 +23,6 @@ permissions:
       - "feastlobby.admin.editarservidor"
       - "feastlobby.admin.bypass"
       - "feastlobby.bypass.maintenance"
+      - "feastlobby.gamemode"
+      - "feastlobby.gamemode.other"
       - "feastlobby.chat"

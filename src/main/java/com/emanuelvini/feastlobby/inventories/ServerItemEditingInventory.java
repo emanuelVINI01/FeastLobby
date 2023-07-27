@@ -21,9 +21,7 @@ import org.bukkit.event.Event;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Predicate;
 
 @AllArgsConstructor
@@ -68,15 +66,50 @@ public class ServerItemEditingInventory implements InventoryProvider {
             });
         }));
 
-        contents.set(1, 3, ClickableItem.of(new ItemStackBuilder(Material.BED).withName("§aAlterar descrição").withLore("§r", "§aDescrição atual:", String.join("\n", server.getItem().getItemMeta().getLore())).buildStack(), e -> {
+        val lines = new ArrayList<>(Arrays.asList("§r", "§aDescrição atual: "));
+        if (server.getItem().getItemMeta().hasLore()) {
+            lines.addAll(server.getItem().getItemMeta().getLore());
+        }
+
+        contents.set(1, 3, ClickableItem.of(new ItemStackBuilder(Material.BED).withName("§aAlterar descrição").
+                withLore(lines).buildStack(), e -> {
             player.closeInventory();
-            player.sendMessage("§r\n§aDigite a nova descrição, use <n> para uma nova linha.\n§r");
+            player.sendMessage("§r\n§aDigite a nova descrição, para uma nova linha envie.\n§aPara redefinir, use: §fredefinir§r\n§aPara remover uma linha use: §fremover 1");
+            val lore = new ArrayList<String>();
+            if (server.getItem().getItemMeta().hasLore()) {
+                lore.addAll(server.getItem().getItemMeta().getLore());
+            }
             plugin.awaitEventWithFilter(AsyncPlayerChatEvent.class, filter, event -> {
                 val chatEvent = (AsyncPlayerChatEvent) event;
                 chatEvent.setCancelled(true);
+                if (chatEvent.getMessage().equalsIgnoreCase("redefinir")) {
+                    NBT.modify(server.getItem(), nbt -> {
+                        nbt.modifyMeta((roNBT, meta) -> { // do not modify the nbt while modifying the meta!
+                            meta.setLore(Collections.emptyList());
+                        });
+                    });
+                    return;
+                }
+                if (chatEvent.getMessage().startsWith("remover ")) {
+                    try {
+                       int line = Integer.parseInt(chatEvent.getMessage().replace("remover ", ""));
+                       lore.remove(line);
+                        NBT.modify(server.getItem(), nbt -> {
+                            nbt.modifyMeta((roNBT, meta) -> { // do not modify the nbt while modifying the meta!
+                                meta.setLore(lore);
+                            });
+                        });
+                       player.sendMessage("§aLinha atualizada com sucesso.");
+                    } catch (Exception ex) {
+                        player.sendMessage("§c§lERRO! §cEssa linha é inválida.");
+                        return;
+                    }
+                    return;
+                }
+                lore.add(ChatColor.translateAlternateColorCodes('&', chatEvent.getMessage()));
                 NBT.modify(server.getItem(), nbt -> {
                     nbt.modifyMeta((roNBT, meta) -> { // do not modify the nbt while modifying the meta!
-                        meta.setLore(Arrays.asList(ChatColor.translateAlternateColorCodes('&', chatEvent.getMessage()).split("<n>")));
+                        meta.setLore(lore);
                     });
                 });
                 repository.updateServer(server);

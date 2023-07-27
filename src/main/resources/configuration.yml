@@ -15,12 +15,15 @@
 # feastlobby.admin.editarservidor: Permissão para usar o /lobbyadmin editarservidor
 # feastlobby.admin.bypass: Permissão para colocar e tirar blocos no lobby.
 # feastlobby.*: Todas permissões do plugin.
+# feastlobby.gamemode: Permissão para alterar seu gamemode
+# feastlobby.gamemode.other: permissão para alterar o gamemode de outras pessoas
 
 # Permissões Gerais:
 
 # feastlobby.chat: Permissão para falar e usar cores no chat
 # feastlobby.bypass.maintenance: Permissão para entrar em manutenção
 # feastlobby.bypass.file.id do servidor: Permissão para burlar a fila daquele servidor
+
 
 # Placeholders:
 

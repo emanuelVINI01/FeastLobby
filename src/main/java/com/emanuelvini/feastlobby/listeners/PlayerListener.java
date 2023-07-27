@@ -67,6 +67,8 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
         if (FeatureValue.get(FeatureValue::disableWorldBlockInteract)) e.setCancelled(true);
+        if (e.getItem() == null) return;
+        if (e.getItem().getItemMeta() == null) return;
         if (!e.getItem().getItemMeta().hasLore()) return;
         if (e.getItem().getItemMeta().getLore().equals(selectorItem.getItemMeta().getLore())) {
             SelectorInventory.open(e.getPlayer());
