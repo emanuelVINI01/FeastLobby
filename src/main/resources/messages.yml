@@ -1,10 +1,14 @@
-not have permission: "&c&lERRO! &cVocê não tem permissão para executar esse comando."
-error occurred: "&c&lERRO! &cHouve uma falha ao executar esse comando."
-not exists server: "&c&lERRO! &cNão existe nenhum servidor com esse ID."
-not have permission to chat: "&c&lERRO! &cVocê não tem permissão para falar no chat."
-server is in maintenance: "&c&lERRO! &cEsse servidor está em manutenção."
-position in file: "&eSua posição na fila de {server_name}&e é #{position}."
-joined in file: "&eVocê entrou na fila do {server_name}&e na posição #{position}."
-leave file: "&cVocê saiu da fila do {server_name}."
-gamemode changed: "&aSeu modo de jogo foi alterado para &f{gamemode}&a com sucesso!"
-gamemode changed other: "&aO modo de jogo de &f{target}&a foi alterado com sucesso!"
+not_have_permission: "&c&lERRO! &cVocê não tem permissão para executar esse comando."
+error_occurred: "&c&lERRO! &cHouve uma falha ao executar esse comando."
+not_exists_server: "&c&lERRO! &cNão existe nenhum servidor com esse ID."
+not_have_permission_to_chat: "&c&lERRO! &cVocê não tem permissão para falar no chat."
+
+server_is_in_maintenance: "&c&lERRO! &cEsse servidor está em manutenção."
+
+position_in_file: "&eSua posição na fila de {server_name}&e é #{position}."
+
+joined_in_file: "&eVocê entrou na fila do {server_name}&e na posição #{position}."
+leave_file: "&cVocê saiu da fila do {server_name}."
+
+gamemode_changed: "&aSeu modo de jogo foi alterado para &f{gamemode}&a com sucesso!"
+gamemode_changed_other: "&aO modo de jogo de &f{target}&a foi alterado com sucesso!"

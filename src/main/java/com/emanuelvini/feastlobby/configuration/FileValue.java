@@ -25,11 +25,11 @@ public class FileValue implements ConfigurationInjectable {
 
     @ConfigField("delay") private int delay;
 
-    @ConfigField("enable chat message") private boolean enableChatMessage;
+    @ConfigField("enable_chat_message") private boolean enableChatMessage;
 
-    @ConfigField("enable actionbar message") private boolean enableActionbarMessage;
+    @ConfigField("enable_actionbar_message") private boolean enableActionbarMessage;
 
-    @ConfigField("close inventory on join leave") private boolean closeInventoryOnJoinLeave;
+    @ConfigField("close_inventory_on_join_leave") private boolean closeInventoryOnJoinLeave;
 
 
     public static <T> T get(Function<FileValue, T> function) {

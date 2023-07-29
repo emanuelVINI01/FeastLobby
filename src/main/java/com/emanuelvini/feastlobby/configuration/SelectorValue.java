@@ -31,7 +31,7 @@ public class SelectorValue implements ConfigurationInjectable {
 
     @ConfigField("item.lore") private List<String> itemLore;
 
-    @ConfigField("item.enable custom skull") private boolean enabledItemCustomSkull;
+    @ConfigField("item.enable_custom_skull") private boolean enabledItemCustomSkull;
 
     @ConfigField("item.skull url") private String itemSkullUrl;
 

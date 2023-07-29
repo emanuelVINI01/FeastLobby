@@ -21,21 +21,21 @@ public class MessageValue implements ConfigurationInjectable {
 
     @Getter private static final MessageValue instance = new MessageValue();
 
-    @ConfigField("not have permission") private String notHavePermission;
+    @ConfigField("not_have_permission") private String notHavePermission;
 
-    @ConfigField("error occurred") private String errorOccurred;
+    @ConfigField("error_occurred") private String errorOccurred;
 
-    @ConfigField("not exists server") private String notExistsServer;
+    @ConfigField("not_exists_server") private String notExistsServer;
 
-    @ConfigField("not have permission to chat") private String notHavePermissionToChat;
+    @ConfigField("not_have_permission_to_chat") private String notHavePermissionToChat;
 
-    @ConfigField("server is in maintenance") private String serverIsInMaintenance;
+    @ConfigField("server_is_in_maintenance") private String serverIsInMaintenance;
 
-    @ConfigField("position in file") private String positionInFile;
+    @ConfigField("position_in_file") private String positionInFile;
 
-    @ConfigField("joined in file") private String joinedInFile;
+    @ConfigField("joined_in_file") private String joinedInFile;
 
-    @ConfigField("leave file") private String leaveFile;
+    @ConfigField("leave_file") private String leaveFile;
 
     public static <T> T get(Function<MessageValue, T> function) {
         return function.apply(instance);

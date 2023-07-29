@@ -31,7 +31,7 @@
 
 error fixer:
   #Se você estiver com erros de SQL no plugin, ative essa opção e reinicie seu servidor, depois desligue ele e desative.
-  delete table: false #Essa opção irá deletar a tabela e criar novamente.
+  delete_table: false #Essa opção irá deletar a tabela e criar novamente.
   debug: false #Essa opção e recomendada se você tiver problemas com o plugin, reportar ela.
 
 features:
@@ -42,25 +42,25 @@ features:
     format: "&7%name%&f: {message}"
   #Configurações de proteção do mundo
   world:
-    disable weather: true #Desabilita a chuva
-    disable grow: true #Desabilita o crescimento de plantações
-    disable block place and break: true #Desabilita colocar blocos e tirar blocos (feastlobby.admin.bypass)
-    disable entity spawn: true #Desabilita o nascimento de entidades
-    disable pvp: true #Desabilita o PvP no lobby
-    disable block interact: true #Desabilita interações com blocos
-    always day: true #Deixa o mundo sempre de dia
+    disable_weather: true #Desabilita a chuva
+    disable_grow: true #Desabilita o crescimento de plantações
+    disable_block_place_and_break: true #Desabilita colocar blocos e tirar blocos (feastlobby.admin.bypass)
+    disable_entity_spawn: true #Desabilita o nascimento de entidades
+    disable_pvp: true #Desabilita o PvP no lobby
+    disable_block_interact: true #Desabilita interações com blocos
+    always_day: true #Deixa o mundo sempre de dia
   #Configurações de proteção do player
   player:
-    disable food: true #A fome sempre ficará cheia.
-    disable damage: true #Desabilitara o dano no lobby
-    disable item drop: true #Desabilita o drop de itens no Lobby
-    set hp to min: true # Define a vida para meio coração.
-    clear inventory: true #Limpa o inventário do jogador ao entrar
+    disable_food: true #A fome sempre ficará cheia.
+    disable_damage: true #Desabilitara o dano no lobby
+    disable_item drop: true #Desabilita o drop de itens no Lobby
+    set_hp_to_min: true # Define a vida para meio coração.
+    clear_inventory: true #Limpa o inventário do jogador ao entrar
   #Sistema de fila do plugin
   file:
     enable: true #Habilitar o sistema de fila
     delay: 500 #Em mili segundos da fila atualizar
-    enable chat message: true #A mensagem da fila será enviada no chat
-    enable actionbar message: true #A mensagem da fila será enviada na actionbar
-    close inventory on join leave: true #Fechar o inventário quando entrar ou sair da fila
+    enable_chat_message: true #A mensagem da fila será enviada no chat
+    enable_actionbar_message: true #A mensagem da fila será enviada na actionbar
+    close_inventory_on_join_leave: true #Fechar o inventário quando entrar ou sair da fila
 

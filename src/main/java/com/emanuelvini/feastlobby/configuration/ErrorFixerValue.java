@@ -22,7 +22,7 @@ public class ErrorFixerValue implements ConfigurationInjectable {
 
     @Getter private static final ErrorFixerValue instance = new ErrorFixerValue();
 
-    @ConfigField("delete table") private boolean deleteTable;
+    @ConfigField("delete_table") private boolean deleteTable;
 
     @ConfigField("debug") private boolean debug;
 
