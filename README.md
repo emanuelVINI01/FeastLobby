@@ -1,11 +1,11 @@
 # FeastLobby
-Um plugin de Lobby simples da FeastPlugins
+A simple lobby plugin for FeastPlugins
 
 
 
-#### Em caso de problemas, abra uma issue com os logs.
+#### If you have problems, create a issue.
 
-|Comando         |Descrição                      |Permissão                    |
+|Comamand         |Description                      |Permission                    |
 |----------------|-------------------------------|-----------------------------|
 |/lobbyadmin editar|Abre o menu de edição de algum servidor.|feastlobby.admin.editarservidor|
 |/lobbyadmin criar|Permite você criar um servidor.|feastlobby.admin.criar|
@@ -15,15 +15,15 @@ Um plugin de Lobby simples da FeastPlugins
 
 ### Instalação
 
-Você pode encontrar JARs compiladas do plugin em clicando [`aqui`](https://github.com/feastplugins/FeastLobby/releases). Ou Você pode clonar o repositório e fazer sua própria build.
+You can find compiled jars [`here`](https://github.com/feastplugins/FeastLobby/releases). Or you can build own builts.
 
-A instalação é bem simples, bastas apenas jogar o plugin na pasta **/plugins/FeastCore/plugins/** e reiniciar o servidor, a configuração tem vários comentários para você saber o que fazer. (Caso não tenha instalado clique [`aqui`](https://github.com/feastplugins/FeastCore))
+The installation is easy, only put the plugin in **/plugins/FeastCore/plugins/** and restart.
 
 ### Placeholders
 
-- "%feastlobby_id" --> Retorna o status do servidor;
+- "%feastlobby_id" --> Retorn the server status;
 
-### Dependências
+### Dependends
 
 - [**PlaceholderAPI**](https://www.spigotmc.org/resources/placeholderapi.6245)
 - [**HolographicDisplays**](https://dev.bukkit.org/projects/holographic-displays)
