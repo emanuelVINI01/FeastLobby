@@ -71,7 +71,7 @@ public class ServerItemEditingInventory implements InventoryProvider {
             lines.addAll(server.getItem().getItemMeta().getLore());
         }
 
-        contents.set(1, 3, ClickableItem.of(new ItemStackBuilder(Material.BED).withName("§aAlterar descrição").
+        contents.set(1, 3, ClickableItem.of(new ItemStackBuilder(Material.WHITE_BED).withName("§aAlterar descrição").
                 withLore(lines).buildStack(), e -> {
             player.closeInventory();
             player.sendMessage("§r\n§aDigite a nova descrição, para uma nova linha envie.\n§aPara redefinir, use: §fredefinir§r\n§aPara remover uma linha use: §fremover 1");
@@ -120,7 +120,7 @@ public class ServerItemEditingInventory implements InventoryProvider {
 
         contents.set(1, 4, ClickableItem.empty(server.getItem()));
 
-        contents.set(1, 5, ClickableItem.of(new ItemStackBuilder(Material.SKULL_ITEM).withName("§aAlterar URL da Cabeça").withLore("§r").buildStack(), e -> {
+        contents.set(1, 5, ClickableItem.of(new ItemStackBuilder(Material.PLAYER_HEAD).withName("§aAlterar URL da Cabeça").withLore("§r").buildStack(), e -> {
             player.closeInventory();
             player.sendMessage("§r\n§aDigite a nova URL da cabeça do item.\n§r");
             plugin.awaitEventWithFilter(AsyncPlayerChatEvent.class, filter, event -> {
@@ -169,7 +169,7 @@ public class ServerItemEditingInventory implements InventoryProvider {
             });
         }));
 
-        contents.set(1, 3, ClickableItem.of(new ItemStackBuilder(Material.BED).withName("§aAlterar descrição").withLore("§r", "§aDescrição atual:", String.join("<n>", server.getItem().getItemMeta().getLore())).buildStack(), e -> {
+        contents.set(1, 3, ClickableItem.of(new ItemStackBuilder(Material.WHITE_BED).withName("§aAlterar descrição").withLore("§r", "§aDescrição atual:", String.join("<n>", server.getItem().getItemMeta().getLore())).buildStack(), e -> {
             player.closeInventory();
             player.sendMessage("§r\n§aDigite a nova descrição, use <n> para uma nova linha.\n§r");
             plugin.awaitEventWithFilter(AsyncPlayerChatEvent.class, filter, event -> {

@@ -33,7 +33,7 @@ public class SelectorValue implements ConfigurationInjectable {
 
     @ConfigField("item.enable_custom_skull") private boolean enabledItemCustomSkull;
 
-    @ConfigField("item.skull url") private String itemSkullUrl;
+    @ConfigField("item.skull_url") private String itemSkullUrl;
 
     @ConfigField("item.material") private String material;
 

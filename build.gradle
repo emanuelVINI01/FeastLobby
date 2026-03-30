@@ -1,0 +1,55 @@
+plugins {
+    id 'java'
+    id 'com.gradleup.shadow' version '9.3.0'
+}
+
+group = 'com.emanuelvini'
+version = '1.0-BETA'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+    maven { url 'https://repo.codemc.org/repository/maven-public/' }
+    maven { url 'https://jitpack.io' }
+    maven { url 'https://repo.papermc.io/repository/maven-public/' }
+    maven { url 'https://repo.helpch.at/releases' }
+}
+
+dependencies {
+    // Provided dependencies (not included in the shaded jar)
+    compileOnly 'de.tr7zw:item-nbt-api-plugin:2.11.3'
+    compileOnly 'io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT'
+    compileOnly 'fr.minuskube.inv:smart-invs:1.2.7'
+    compileOnly 'me.clip:placeholderapi:2.12.2'
+    
+    // Compile dependencies (to be shaded/included)
+    implementation 'com.github.SaiintBrisson.command-framework:bukkit:1.2.0'
+    implementation 'com.github.SaiintBrisson.command-framework:shared:1.2.0'
+    implementation 'com.github.HenryFabio.configuration-injector:bukkit:1.0.2'
+    implementation 'org.jetbrains:annotations:24.0.0'
+    
+    // System dependency
+    implementation files('/home/emanuel/Secretária/server/Servers/Feast/Servidor/plugins/FeastCore/target/FeastCore-1.0-SNAPSHOT.jar')
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+shadowJar {
+    // Maven shade equivalent configuration
+    // By default, shadowJar includes all 'runtime' dependencies
+    archiveClassifier.set('')
+}
+
+build.dependsOn shadowJar

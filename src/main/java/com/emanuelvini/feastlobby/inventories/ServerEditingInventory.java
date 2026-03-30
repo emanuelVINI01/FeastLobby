@@ -102,7 +102,7 @@ public class ServerEditingInventory implements InventoryProvider {
 
                 }));
         contents.set(1, 6, ClickableItem.of(
-                new ItemStackBuilder(Material.WEB).
+                new ItemStackBuilder(Material.NAME_TAG).
                         withName("§bAlterar servidor BungeeCord").
                         withLore("§r", "§aClique aqui para alterar o servidor BungeeCord.", String.format("§aServidor atual: §e%s", server.getBungee()) , "§r").buildStack(),
                 e -> {

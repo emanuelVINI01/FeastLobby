@@ -1,0 +1,28 @@
+name: FeastLobby
+version: 1.0-BETA
+main: com.emanuelvini.feastlobby.FeastLobby
+author: emanuelVINI
+permissions:
+  feastlobby.admin.criar:
+    default: "op"
+    description: "Permissão para usar o /lobbyadmin criar"
+  feastlobby.admin.editarservidor:
+    default: "op"
+    description: "Permissão para usar o /lobbyadmin editarservidor"
+  feastlobby.admin.bypass:
+    default: "op"
+    description: "Permissão para colocar e tirar blocos no lobby."
+  feastlobby.bypass.maintenance:
+    default: "op"
+    description: "Permissão para entrar em manutenção."
+  feastlobby.*:
+    default: "op"
+    description: "Permissão para usar todos comandos do /lobbyadmin e bypasses"
+    children:
+      - "feastlobby.admin.criar"
+      - "feastlobby.admin.editarservidor"
+      - "feastlobby.admin.bypass"
+      - "feastlobby.bypass.maintenance"
+      - "feastlobby.gamemode"
+      - "feastlobby.gamemode.other"
+      - "feastlobby.chat"

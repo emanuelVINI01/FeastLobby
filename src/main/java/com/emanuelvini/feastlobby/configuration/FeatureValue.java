@@ -40,7 +40,7 @@ public class FeatureValue implements ConfigurationInjectable {
 
     @ConfigField("world.disable_grow") private boolean disableWorldGrow;
 
-    @ConfigField("world.disable_block place and break") private boolean disableWorldPlaceAndBreak;
+    @ConfigField("world.disable_block_place_and_break") private boolean disableWorldPlaceAndBreak;
 
     @ConfigField("world.disable_entity_spawn") private boolean disableWorldEntitySpawn;
 

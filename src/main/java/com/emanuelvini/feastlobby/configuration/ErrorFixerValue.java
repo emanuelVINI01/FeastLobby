@@ -15,7 +15,7 @@ import java.util.function.Function;
 @Getter
 @Accessors(fluent = true)
 @ConfigFile("configuration.yml")
-@ConfigSection("error fixer")
+@ConfigSection("error_fixer")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 
 public class ErrorFixerValue implements ConfigurationInjectable {
