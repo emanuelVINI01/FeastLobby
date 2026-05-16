@@ -1,29 +1,23 @@
+> "Este projeto faz parte do meu início na programação. O código aqui é legado, reflete meus primeiros passos de aprendizado e não segue as práticas de arquitetura que utilizo hoje. Mantido aqui puramente por valor histórico e nostalgia."
+
 # FeastLobby
-A simple lobby plugin for FeastPlugins
 
+## O que este projeto tentava resolver
 
+Um plugin de Lobby da FeastPlugins.
 
-#### If you have problems, create a issue.
+Na prática, este repositório representa uma fase inicial de experimentação: código escrito para aprender, testar ideias, automatizar tarefas ou resolver demandas pontuais em comunidades e servidores. A prioridade na época era fazer funcionar, não desenhar uma arquitetura limpa.
 
-|Comamand         |Description                      |Permission                    |
-|----------------|-------------------------------|-----------------------------|
-|/lobbyadmin editar|Abre o menu de edição de algum servidor.|feastlobby.admin.editarservidor|
-|/lobbyadmin criar|Permite você criar um servidor.|feastlobby.admin.criar|
-|/lobbyadmin deletar|Permite você deletar um servidor.|feastlobby.admin.deletar|
-|/lobbyadmin npc set|Permite você definir o NPC de um servidor.|feastlobby.admin.npc|
-|/lobbyadmin npc remove|Permite você remover o NPC de um servidor.|feastlobby.admin.npc|
+## Stack identificada
 
-### Instalação
+Bukkit/Spigot, BungeeCord, Gradle, Java, Velocity
 
-You can find compiled jars [`here`](https://github.com/feastplugins/FeastLobby/releases). Or you can build own builts.
+## Leitura do código
 
-The installation is easy, only put the plugin in **/plugins/FeastCore/plugins/** and restart.
+- build Gradle identificado.
+- plugin.yml indica plugin Bukkit/Spigot.
+- diretório `src/` concentra a implementação principal.
 
-### Placeholders
+## Estado atual
 
-- "%feastlobby_id" --> Retorn the server status;
-
-### Dependends
-
-- [**PlaceholderAPI**](https://www.spigotmc.org/resources/placeholderapi.6245)
-- [**HolographicDisplays**](https://dev.bukkit.org/projects/holographic-displays)
+Este repositório não deve ser usado como referência do meu padrão técnico atual. Ele fica público para preservar a evolução: da fase de tentativa e erro com Java/Kotlin/Minecraft/Discord até os projetos atuais com sistemas web, APIs, dados e infraestrutura mais bem definidos.
